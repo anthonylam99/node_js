@@ -4,6 +4,8 @@ const morgan = require('morgan')
 const helmet = require('helmet')
 const Joi = require('joi')
 const config = require('config')
+const appDebug = require('debug')('app:startup')
+const dbDebug = require('debug')('app:db')
 
 const app = express()
 const port = 3000
@@ -20,8 +22,10 @@ console.log(`Host mail: ${config.get('mail.host')}`)
 
 if(app.get('env') === 'development'){
     app.use(morgan('tiny'))
-    console.log('Morgan enabled.....')
+    appDebug('Morgan enabled.....')
 }
+
+dbDebug('Start debuging DB....')
 
 app.get('/', (req, res) => {
     res.send('Hello World')
